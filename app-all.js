@@ -46959,7 +46959,7 @@ Ext.define('Spriter.view.Code', {
     region: 'center',
     width: 600,
     autoScroll: true,
-    html: '<div id="code" contenteditable style="white-space: pre;"></div>'
+    html: '<pre id="code" contenteditable style="white-space: pre;"></pre>'
 });
 /*
 This file is part of Ext JS 4.2
@@ -50117,7 +50117,9 @@ Ext.define('Spriter.controller.Maker', {
 				bgtxt += cls + coma + '\n';
 			} else {
 				bgtxt += cls + ' {\n';
-				bgtxt += '  background: url(yourspriteimageurl) -9999px -9999px no-repeat;\n';
+                bgtxt += '  display: inline-block;\n';
+                bgtxt += '  vertical-align: middle;\n';
+				bgtxt += '  background: url(icons.png) -9999px -9999px no-repeat;\n';
 				bgtxt += '}\n';
 			}
 		});
