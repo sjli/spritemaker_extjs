@@ -363,7 +363,9 @@ Ext.define('Spriter.controller.Maker', {
 				bgtxt += cls + coma + '\n';
 			} else {
 				bgtxt += cls + ' {\n';
-				bgtxt += '  background: url(yourspriteimageurl) -9999px -9999px no-repeat;\n';
+				bgtxt += '  display: inline-block;\n';
+				bgtxt += '  vertical-align: middle;\n';
+				bgtxt += '  background: url(icons.png) -9999px -9999px no-repeat;\n';
 				bgtxt += '}\n';
 			}
 		});
