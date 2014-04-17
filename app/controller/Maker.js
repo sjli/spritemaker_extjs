@@ -130,6 +130,7 @@ Ext.define('Spriter.controller.Maker', {
 
 	initLayer: function() {
 		this.layer = new EC.Layer('view');
+		this.layer.ctx.setTransform(1, 0, 0, 1, 0, 0);
 	},
 
 	upload1: function(e, elm) {
