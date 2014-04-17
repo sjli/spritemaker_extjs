@@ -45,7 +45,7 @@ Ext.define('Spriter.view.Panel2', {
         			margin: 10,
                     xtype: 'textfield',
                     cls: 'set-prefix',
-                    value: 'icon_',
+                    value: '',
                     fieldLabel: '前缀'
         		},
         		{
