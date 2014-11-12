@@ -35,7 +35,7 @@ Ext.define('Spriter.view.Panel1', {
                     xtype: 'numberfield',
                     fieldLabel: 'Sprite宽度',
                     id: 'set-width1',
-                    value: 600,
+                    value: 720,
                     size: 6
         		},
         		{
@@ -98,6 +98,14 @@ Ext.define('Spriter.view.Panel1', {
                     cls: 'set-url',
                     value: '',
                     fieldLabel: '预定css中图片地址'
+                },
+                {
+                    border: 0,
+                    margin: 10,
+                    xtype: 'checkbox',
+                    cls: 'add-hover',
+                    value: '',
+                    fieldLabel: '-hover后缀添加:hover'
                 }
         	]
         };

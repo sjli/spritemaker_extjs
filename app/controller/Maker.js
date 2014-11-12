@@ -333,6 +333,7 @@ Ext.define('Spriter.controller.Maker', {
 			pre = Ext.ComponentQuery.query('[cls=set-prefix]')[0].value,
 			picloc = Ext.ComponentQuery.query('[cls=set-url]')[0].value,
 			ind = parseInt(Ext.ComponentQuery.query('[cls=set-name-rule]')[0].getValue()),
+			addHover = Ext.ComponentQuery.query('[cls=add-hover]')[0].getValue(),
 			coder = Ext.select('#code').elements[0],
 			txt = '',
 			bgtxt = '',
@@ -350,6 +351,10 @@ Ext.define('Spriter.controller.Maker', {
 				y = This.clipY - v.y ? This.clipY - v.y + 'px' : '0',
 				last = ind == 1 ? (v.name ? v.name : This.spriteName + '_' + i) : i,
 				cls = '.' + pre + last;
+
+			if (addHover && /\-hover$/.test(cls)) {
+				cls = cls + ', ' + cls.replace(/\-hover$/, ':hover');
+			}
 
 			txt += '\n' + cls + ' {\n';
 			txt += '  width: ' + v.w + 'px;\n';
