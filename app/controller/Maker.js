@@ -337,6 +337,7 @@ Ext.define('Spriter.controller.Maker', {
 			coder = Ext.select('#code').elements[0],
 			txt = '',
 			bgtxt = '',
+			toolInfo = '',
 			len = this.layer.ctx.graphs.length,
 			coma = len == 1 ? '' : ',',
 			This = this;
@@ -345,6 +346,8 @@ Ext.define('Spriter.controller.Maker', {
 			detector.style.display = 'none';
 		}
 		if (isNaN(ind)) ind = 1;
+
+		toolInfo = 'The css code below is created by http://sjli.github.io/spritemaker_extjs/example.html\n\n/*-----The sprites----*/\n'
 		
 		this.layer.ctx.graphs.forEach(function(v, i) {
 			var x = This.clipX - v.x ? This.clipX - v.x + 'px' : '0',
@@ -374,7 +377,7 @@ Ext.define('Spriter.controller.Maker', {
 			}
 		});
 
-		coder.innerHTML = bgtxt + txt;
+		coder.innerHTML = toolInfo + bgtxt + txt;
 	},
 
 	clip: function() {
