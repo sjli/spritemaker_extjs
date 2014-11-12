@@ -1,3 +1,5 @@
+Ext.override(Ext.panel.Panel, { enableTextSelection: true });
+
 Ext.define('Spriter.controller.Maker', {
 	extend: 'Ext.app.Controller',
 
@@ -34,16 +36,9 @@ Ext.define('Spriter.controller.Maker', {
 
 			'spritesave': {
 				activate: function() {
-					// fix down load button not work
-					var btn = Ext.ComponentQuery.query('[cls=btn-down]')[this.curTab],
-						btnEl = Ext.select('#' + btn.id).elements[0],
-						clone = btnEl.cloneNode(true),
-						parent = btnEl.parentNode;
-
-						btnEl.style.display = 'none';
-						parent.appendChild(clone);
 
 					// update css
+					This.updateUrl();
 					This.updateCss();
 				}
 			},
@@ -135,6 +130,7 @@ Ext.define('Spriter.controller.Maker', {
 
 	initLayer: function() {
 		this.layer = new EC.Layer('view');
+		this.layer.ctx.setTransform(1, 0, 0, 1, 0, 0);
 	},
 
 	upload1: function(e, elm) {
@@ -207,7 +203,6 @@ Ext.define('Spriter.controller.Maker', {
 			}
 		});
 
-		this.updateUrl();
 	},
 
 	upload2: function(e, elm) {
@@ -315,7 +310,6 @@ Ext.define('Spriter.controller.Maker', {
 		Ext.getCmp('move-next2').setDisabled(false);
 		Ext.getCmp('move-prev2').setDisabled(false);
 		Ext.getCmp('panel2').layout.setActiveItem(1);
-		this.updateUrl();
 	},
 
 	updateUrl: function() {
@@ -323,21 +317,27 @@ Ext.define('Spriter.controller.Maker', {
 			elms = Ext.select('#' + btn.id).elements,
 			btnEl = elms[elms.length - 1],
 			data = this.layer.canvas.toDataURL('image/png'),
+			picloc = Ext.ComponentQuery.query('[cls=set-url]')[0].value,
 			downmime = 'image/octet-stream';
 			data = data.replace(/image\/\w+/, downmime);
-		console.log(btnEl, elms)
 		btn.setHref(data);
 		btnEl.setAttribute('href', data);
-		btnEl.download = this.spriteName ? this.spriteName + '.png' : 'custom.png';
+		btnEl.download = picloc ? picloc.replace(/[#\?].*/, '').replace(/^.*\/(?=[\w\.]+$)/, '') : 'custom.png';
+
+		//fix click prevented bug
+		Ext.select('#' + btn.id).removeAllListeners();
 	},
 
 	updateCss: function() {
 		var detector = Ext.select('#ec_detector').elements[0],
 			pre = Ext.ComponentQuery.query('[cls=set-prefix]')[0].value,
+			picloc = Ext.ComponentQuery.query('[cls=set-url]')[0].value,
 			ind = parseInt(Ext.ComponentQuery.query('[cls=set-name-rule]')[0].getValue()),
+			addHover = Ext.ComponentQuery.query('[cls=add-hover]')[0].getValue(),
 			coder = Ext.select('#code').elements[0],
 			txt = '',
 			bgtxt = '',
+			toolInfo = '',
 			len = this.layer.ctx.graphs.length,
 			coma = len == 1 ? '' : ',',
 			This = this;
@@ -346,12 +346,18 @@ Ext.define('Spriter.controller.Maker', {
 			detector.style.display = 'none';
 		}
 		if (isNaN(ind)) ind = 1;
+
+		toolInfo = 'The css code below is created by http://sjli.github.io/spritemaker_extjs/example.html\n\n/*-----The sprites----*/\n'
 		
 		this.layer.ctx.graphs.forEach(function(v, i) {
 			var x = This.clipX - v.x ? This.clipX - v.x + 'px' : '0',
 				y = This.clipY - v.y ? This.clipY - v.y + 'px' : '0',
 				last = ind == 1 ? (v.name ? v.name : This.spriteName + '_' + i) : i,
 				cls = '.' + pre + last;
+
+			if (addHover && /\-hover$/.test(cls)) {
+				cls = cls + ', ' + cls.replace(/\-hover$/, ':hover');
+			}
 
 			txt += '\n' + cls + ' {\n';
 			txt += '  width: ' + v.w + 'px;\n';
@@ -363,12 +369,15 @@ Ext.define('Spriter.controller.Maker', {
 				bgtxt += cls + coma + '\n';
 			} else {
 				bgtxt += cls + ' {\n';
-				bgtxt += '  background: url(yourspriteimageurl) -9999px -9999px no-repeat;\n';
+				bgtxt += '  display: inline-block;\n';
+				bgtxt += '  *zoom: 1;\n';
+				bgtxt += '  vertical-align: middle;\n';
+				bgtxt += '  background: url(' + picloc + ') -9999px -9999px no-repeat;\n';
 				bgtxt += '}\n';
 			}
 		});
 
-		coder.innerHTML = bgtxt + txt;
+		coder.innerHTML = toolInfo + bgtxt + txt;
 	},
 
 	clip: function() {

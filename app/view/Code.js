@@ -5,5 +5,5 @@ Ext.define('Spriter.view.Code', {
     region: 'center',
     width: 600,
     autoScroll: true,
-    html: '<div id="code" contenteditable style="white-space: pre;"></div>'
+    html: '<pre id="code" contenteditable style="white-space: pre;"></pre>'
 });

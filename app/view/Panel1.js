@@ -35,7 +35,7 @@ Ext.define('Spriter.view.Panel1', {
                     xtype: 'numberfield',
                     fieldLabel: 'Sprite宽度',
                     id: 'set-width1',
-                    value: 700,
+                    value: 720,
                     size: 6
         		},
         		{
@@ -44,7 +44,7 @@ Ext.define('Spriter.view.Panel1', {
                     xtype: 'numberfield',
                     fieldLabel: 'Sprite高度',
                     id: 'set-height1',
-                    value: 400,
+                    value: 480,
                     size: 6
         		},
         		{
@@ -72,7 +72,7 @@ Ext.define('Spriter.view.Panel1', {
         			margin: 10,
                     xtype: 'textfield',
                     cls: 'set-prefix',
-                    value: 'icon_',
+                    value: '',
                     fieldLabel: '前缀'
         		},
         		{
@@ -90,7 +90,23 @@ Ext.define('Spriter.view.Panel1', {
                         fields: ['name', 'type'],
                         data: [{name: '前缀+icon图名', type: '1'},{name: '前缀+序号', type: '2'}]
                     })
-        		}
+        		},
+                {
+                    border: 0,
+                    margin: 10,
+                    xtype: 'textfield',
+                    cls: 'set-url',
+                    value: '',
+                    fieldLabel: '预定css中图片地址'
+                },
+                {
+                    border: 0,
+                    margin: 10,
+                    xtype: 'checkbox',
+                    cls: 'add-hover',
+                    value: '',
+                    fieldLabel: '-hover后缀添加:hover'
+                }
         	]
         };
 
