@@ -347,7 +347,7 @@ Ext.define('Spriter.controller.Maker', {
 		}
 		if (isNaN(ind)) ind = 1;
 
-		toolInfo = 'The css code below is created by http://sjli.github.io/spritemaker_extjs/example.html\n\n/*-----The sprites----*/\n'
+		toolInfo = '//The css code below is created by http://sjli.github.io/spritemaker_extjs/example.html\n\n/*-----The sprites----*/\n'
 		
 		this.layer.ctx.graphs.forEach(function(v, i) {
 			var x = This.clipX - v.x ? This.clipX - v.x + 'px' : '0',
