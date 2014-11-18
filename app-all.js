@@ -50127,7 +50127,7 @@ Ext.define('Spriter.controller.Maker', {
 				cls = '.' + pre + last;
 
 			if (addHover && /\-hover$/.test(cls)) {
-				cls = cls + ', ' + cls.replace(/\-hover$/, ':hover');
+				cls = cls + ', ' + cls.replace(/\-hover$/, ':hover') + ', a:hover ' + cls.replace(/\-hover$/, '');
 			}
 
 			txt += '\n' + cls + ' {\n';
